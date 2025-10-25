@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 
 int main() {
     int totalFrames, windowSize;
@@ -10,22 +9,22 @@ int main() {
     printf("Enter window size: ");
     scanf("%d", &windowSize);
 
-    srand(time(NULL)); // randomize
+    srand(time(NULL)); // random for loss simulation
 
-    int sent = 1;
-    while (sent <= totalFrames) {
-        printf("\nSender: Sending frames %d to %d\n", sent, sent + windowSize - 1);
+    int frame = 1;
+    while (frame <= totalFrames) {
+        printf("\nSender: Sending frames %d to %d\n", frame, frame + windowSize - 1);
 
-        int lost = rand() % windowSize + sent; // simulate loss randomly
-        if (lost <= totalFrames && rand()%2 == 1) { // 50% chance of loss
-            printf("Receiver: Frame %d lost! Sending NAK.\n", lost);
-            printf("Sender: Resending frames from %d again...\n", lost);
-            sent = lost; // Go back and resend from lost frame
+        // simulate loss
+        int lostFrame = frame + (rand() % windowSize); 
+        if (lostFrame <= totalFrames && rand() % 2 == 1) {
+            printf("Receiver: Frame %d lost!\n", lostFrame);
+            printf("Sender: Resending frames from %d again...\n", lostFrame);
+            frame = lostFrame; // go back to lost frame
         } else {
-            printf("Receiver: All frames received successfully.\n");
-            sent += windowSize; // move window forward
+            printf("Receiver: All frames in window received successfully.\n");
+            frame += windowSize; // slide window forward
         }
-        sleep(1);
     }
 
     printf("\nAll frames sent successfully using Go-Back-N ARQ!\n");
