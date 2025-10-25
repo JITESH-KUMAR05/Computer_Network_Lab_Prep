@@ -42,6 +42,5 @@ int main() {
         printf("No error detected.\n");
     else
         printf("Error detected!\n");
-
     return 0;
 }
