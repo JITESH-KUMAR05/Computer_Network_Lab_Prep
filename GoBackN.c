@@ -14,8 +14,6 @@ int main() {
     int frame = 1;
     while (frame <= totalFrames) {
         printf("\nSender: Sending frames %d to %d\n", frame, frame + windowSize - 1);
-
-        // simulate loss
         int lostFrame = frame + (rand() % windowSize); 
         if (lostFrame <= totalFrames && rand() % 2 == 1) {
             printf("Receiver: Frame %d lost!\n", lostFrame);
