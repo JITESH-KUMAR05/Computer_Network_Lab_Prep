@@ -9,7 +9,7 @@ int main() {
     printf("Enter window size: ");
     scanf("%d", &windowSize);
 
-    srand(time(NULL)); // random for loss simulation
+    srand(time(NULL)); 
 
     int frame = 1;
     while (frame <= totalFrames) {
